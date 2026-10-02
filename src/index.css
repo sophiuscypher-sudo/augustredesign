@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+/* ───────────────────────────────────────────────────────────
+   AUGUST SOLUTIONS — design tokens
+   Near-black · soft white · graphite · warm neutral · one accent
+   The accent evolves August's original signal red into a
+   luminous vermilion ("ember").
+   ─────────────────────────────────────────────────────────── */
+@theme {
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, "Times New Roman", serif;
+
+  --color-ink: #0b0b0a;
+  --color-coal: #11110f;
+  --color-graphite: #1a1a18;
+  --color-graphite-2: #242421;
+  --color-steel: #3a3a35;
+  --color-ash: #8d8a80;
+  --color-sand: #cfc8b7;
+  --color-paper: #e6e1d4;
+  --color-bone: #f2efe8;
+  --color-ember: #ff4b24;
+  --color-ember-deep: #d93a16;
+
+  --animate-blink: blink 1.6s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-spin-slow: spin 24s linear infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes flow {
+  to { stroke-dashoffset: -48; }
+}
+@keyframes flow-rev {
+  to { stroke-dashoffset: 48; }
+}
+@keyframes ring {
+  0% { transform: scale(0.6); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-ember);
+  color: var(--color-ink);
+}
+
+section[id], div[id] {
+  scroll-margin-top: 72px;
+}
+
+/* ── type helpers ─────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.display {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.hairline {
+  border-color: rgba(242, 239, 232, 0.12);
+}
+
+.outline-text {
+  -webkit-text-stroke: 1px currentColor;
+  color: transparent;
+}
+
+/* blueprint grid used on dark surfaces */
+.bg-blueprint {
+  background-image:
+    linear-gradient(rgba(242, 239, 232, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242, 239, 232, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.bg-blueprint-light {
+  background-image:
+    linear-gradient(rgba(11, 11, 10, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 11, 10, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.flow-line {
+  stroke-dasharray: 6 10;
+  animation: flow 1.6s linear infinite;
+}
+.flow-line-rev {
+  stroke-dasharray: 6 10;
+  animation: flow-rev 1.6s linear infinite;
+}
+
+/* thin scrollbars inside panels */
+.thin-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+.thin-scroll::-webkit-scrollbar-thumb { background: rgba(242, 239, 232, 0.18); border-radius: 99px; }
+.thin-scroll::-webkit-scrollbar-track { background: transparent; }
+
+button, a { -webkit-tap-highlight-color: transparent; }
+
+:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
